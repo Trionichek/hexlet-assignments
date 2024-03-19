@@ -5,19 +5,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.boot.SpringApplication;
+
 // BEGIN
-@SpringBootTest
-@AutoConfigureMockMvc
-class ApplicationTest {
+@SpringBootApplication
+@RestController
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void testIndex() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/about"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().string(containsString("Welcome to Hexlet!")));
+    @GetMapping("/about")
+    String home() {
+        return "Welcome to Hexlet!";
     }
 }
 // END
